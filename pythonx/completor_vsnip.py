@@ -21,8 +21,9 @@ class Vsnip(Completor):
         for item in vsnip_snippets:
             snippets.append({
                 'word': item[b'word'],
+                'abbr': b'~'.join([item[b'abbr'], b'']),
+                'menu': item[b'menu'],
                 'dup': 1,
-                'menu': item[b'menu']
             })
         snippets.sort(key=lambda x: x['word'])
         return snippets
@@ -46,6 +47,5 @@ class Vsnip(Completor):
 
         offset = len(self.input_data) - len(token)
         for c in candidates:
-            c['abbr'] = c['word']
             c['offset'] = offset
         return candidates

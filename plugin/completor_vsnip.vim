@@ -6,14 +6,14 @@ let g:loaded_completor_vsnip_plugin = 1
 let s:py = has('python3') ? 'py3' : 'py'
 
 
-function! s:err(msg)
+function! s:err(msg) abort
     echohl Error
     echo a:msg
     echohl NONE
 endfunction
 
 
-function! s:import_python()
+function! s:import_python() abort
     try
         exe s:py 'import completor_vsnip'
     catch /^Vim(py\(thon\|3\)):/
@@ -36,13 +36,13 @@ function! s:import_python()
 endfunction
 
 
-function! s:enable()
+function! s:enable() abort
     call s:import_python()
     call s:disable()
 endfunction
 
 
-function! s:disable()
+function! s:disable() abort
     augroup completor_vsnip
         autocmd!
     augroup END
