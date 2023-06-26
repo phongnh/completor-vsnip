@@ -13,13 +13,10 @@ class Vsnip(Completor):
     sync = True
 
     @staticmethod
-    def vsnip_snippets():
+    def _snippets():
         bufnr = vim.Function('bufnr')()
-        return vim.Function('vsnip#get_complete_items')(bufnr).values()
-
-    @staticmethod
-    def buffer_snippets():
-        vsnip_snippets = self.vsnip_snippets()
+        vsnip_snippets = vim.Function('vsnip#get_complete_items')(bufnr)
+        logger.info(repr(vsnip_snippets))
         snippets = []
         for item in vsnip_snippets:
             snippets.append({
@@ -36,8 +33,10 @@ class Vsnip(Completor):
 
         if self.ft not in _cache:
             try:
-                _cache[self.ft] = self.buffer_snippets()
-            except Exception:
+                _cache[self.ft] = self._snippets()
+            except Exception as e:
+                logger.info('========== Exception ==========')
+                logger.info(repr(e))
                 _cache[self.ft] = []
 
         token = self.input_data.split()[-1]
