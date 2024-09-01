@@ -42,7 +42,6 @@ class Vsnip(Completor):
         token = self.input_data.split()[-1]
         candidates = [dict(item) for item in _cache[self.ft]
                       if item['word'].startswith(token.encode('utf-8'))]
-        logger.info(candidates)
 
         offset = len(self.input_data) - len(token)
         for c in candidates:
