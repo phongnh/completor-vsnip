@@ -16,7 +16,6 @@ class Vsnip(Completor):
     def _snippets():
         bufnr = vim.Function('bufnr')()
         vsnip_snippets = vim.Function('vsnip#get_complete_items')(bufnr)
-        logger.info(repr(vsnip_snippets))
         snippets = []
         for item in vsnip_snippets:
             snippets.append({
